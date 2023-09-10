@@ -43,11 +43,11 @@ BCRYPT_PASSWORD=$(htpasswd -bnBC 10 "" ${ADMIN_PASSWORD} | tr -d ':\n');
 echo "BCRYPT_PASSWORD"
 echo $BCRYPT_PASSWORD
 docker-compose exec -T streaming sh -c "RAILS_ENV=production bin/tootctl accounts create ${LOGIN} --email ${ADMIN_EMAIL} --confirmed --role Owner;"
-docker-compose exec db psql -d mastodon_production -U postgres -c "UPDATE users SET encrypted_password = '${BCRYPT_PASSWORD}' WHERE id = '1';"
+docker-compose exec -T db psql -d mastodon_production -U postgres -c "UPDATE users SET encrypted_password = '${BCRYPT_PASSWORD}' WHERE id = '1';"
 
 #fix streaming api
-sed -i 's@listen 443 ssl http2;@listen 443 ssl http2;\n\n  location ^~ /api/v1/streaming {\n    proxy_pass http://172.17.0.1:4001;\n    proxy_set_header Host $http_host;\n  }\n\n@g' /opt/elestio/nginx/conf.d/[DOMAIN].conf
+sed -i 's@listen 443 ssl http2;@listen 443 ssl http2;\n\n  location ^~ /api/v1/streaming {\n    proxy_pass http://172.17.0.1:4001;\n    proxy_set_header Host $http_host;\n  }\n\n@g' /opt/elestio/nginx/conf.d/${DOMAIN}.conf
 #fix video views on ios
-sed -i 's@location / {@location / {\n\n      proxy_force_ranges on;\n\n@g'  /opt/elestio/nginx/conf.d/[DOMAIN].conf
+sed -i 's@location / {@location / {\n\n      proxy_force_ranges on;\n\n@g'  /opt/elestio/nginx/conf.d/${DOMAIN}.conf
 #restart nginx
 docker exec elestio-nginx nginx -s reload;
