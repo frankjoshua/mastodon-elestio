@@ -54,11 +54,6 @@ services:
     restart: always
     environment:
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m -Des.enforce.bootstrap.checks=true"
-      - "xpack.license.self_generated.type=basic"
-      - "xpack.security.enabled=false"
-      - "xpack.watcher.enabled=false"
-      - "xpack.graph.enabled=false"
-      - "xpack.ml.enabled=false"
       - "bootstrap.memory_lock=true"
       - "cluster.name=opensearch-mastodon"
       - "discovery.type=single-node"
@@ -113,20 +108,3 @@ services:
       - redis
     volumes:
       - ./public/system:/mastodon/public/system
-
-  ## Uncomment to enable federation with tor instances along with adding the following ENV variables
-  ## http_proxy=http://privoxy:8118
-  ## ALLOW_ACCESS_TO_HIDDEN_SERVICE=true
-  # tor:
-  #   image: sirboops/tor
-  #   networks:
-  #      - external_network
-  #      - internal_network
-  #
-  # privoxy:
-  #   image: sirboops/privoxy
-  #   volumes:
-  #     - ./priv-config:/opt/config
-  #   networks:
-  #     - external_network
-  #     - internal_network

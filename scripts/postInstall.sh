@@ -19,8 +19,6 @@ docker-compose run --rm web bundle exec rake mastodon:webpush:generate_vapid_key
 docker-compose run --rm web rails db:migrate;
 docker-compose run --rm web rails assets:precompile;
 
-echo "after run --rm"
-
 
 mkdir -p public
 chown -R 991:991 public
@@ -34,14 +32,12 @@ mkdir -p public/system/cache;
 chown -R 991:991 public/system/cache;
 docker-compose up -d;
 
-echo "sleep 60s"
 sleep 60s;
 LOGIN=`echo "${ADMIN_EMAIL}" | awk -F "@" '{ print $1 }'`;
 LOGIN=`echo $LOGIN | tr '.' '_'`
 LOGIN=`echo $LOGIN | tr '-' '_'`
 BCRYPT_PASSWORD=$(htpasswd -bnBC 10 "" ${ADMIN_PASSWORD} | tr -d ':\n');
-echo "BCRYPT_PASSWORD"
-echo $BCRYPT_PASSWORD
+
 docker-compose exec -T streaming sh -c "RAILS_ENV=production bin/tootctl accounts create ${LOGIN} --email ${ADMIN_EMAIL} --confirmed --role Owner;"
 docker-compose exec -T db psql -d mastodon_production -U postgres -c "UPDATE users SET encrypted_password = '${BCRYPT_PASSWORD}' WHERE id = '1';"
 
