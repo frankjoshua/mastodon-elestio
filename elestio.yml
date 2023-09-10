@@ -82,9 +82,7 @@ lifeCycleConfig:
   postRestoreCommand: "./scripts/postRestore.sh"
   postDeployCommand: "./scripts/postDeploy.sh"
 webUI:
-  - url: "https://[CI_CD_DOMAIN]:6443"
+  - url: "https://[CI_CD_DOMAIN]"
     label: "Mastodon UI"
     login: "[ADMIN_EMAIL]"
     password: "[ADMIN_PASSWORD]"
-  - url: "https://[CI_CD_DOMAIN]"
-    label: "Mastodon API"

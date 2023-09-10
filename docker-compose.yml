@@ -53,7 +53,7 @@ services:
     image: opensearchproject/opensearch:latest
     restart: always
     environment:
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m -Des.enforce.bootstrap.checks=true"
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m -Des.enforce.bootstrap.checks=true"
       - "xpack.license.self_generated.type=basic"
       - "xpack.security.enabled=false"
       - "xpack.watcher.enabled=false"
@@ -63,6 +63,9 @@ services:
       - "cluster.name=opensearch-mastodon"
       - "discovery.type=single-node"
       - "thread_pool.write.queue_size=1000"
+      - "node.name=opensearch"
+      - "DISABLE_INSTALL_DEMO_CONFIG=true"
+      - "DISABLE_SECURITY_PLUGIN=true"
     ulimits:
       memlock:
         soft: -1
@@ -87,7 +90,7 @@ services:
       - redis
       - opensearch
     volumes:
-      - ./storage/public/system:/mastodon/public/system
+      - ./public/system:/mastodon/public/system
 
   streaming:
     image: ghcr.io/mastodon/mastodon:latest
@@ -109,7 +112,7 @@ services:
       - db
       - redis
     volumes:
-      - ./storage/public/system:/mastodon/public/system
+      - ./public/system:/mastodon/public/system
 
   ## Uncomment to enable federation with tor instances along with adding the following ENV variables
   ## http_proxy=http://privoxy:8118

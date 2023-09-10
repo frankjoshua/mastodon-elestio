@@ -12,10 +12,6 @@ Deploy Mastodon server with CI/CD on Elestio
 
 You can open Mastodon UI here:
 
-    URL: https://[CI_CD_DOMAIN]:6443
+    URL: https://[CI_CD_DOMAIN]
     email: [ADMIN_EMAIL]
     password: [ADMIN_PASSWORD]
-
-You can open Mastodon API here:
-
-    URL: https://[CI_CD_DOMAIN]
