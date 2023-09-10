@@ -50,7 +50,7 @@ services:
   #     - '127.0.0.1:9200:9200'
 
   opensearch:
-    image: opensearchproject/opensearch:${SOFTWARE_VERSION_TAG}
+    image: opensearchproject/opensearch:latest
     restart: always
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m -Des.enforce.bootstrap.checks=true"
@@ -60,16 +60,9 @@ services:
       - "xpack.graph.enabled=false"
       - "xpack.ml.enabled=false"
       - "bootstrap.memory_lock=true"
-      - "cluster.name=es-mastodon"
+      - "cluster.name=opensearch-mastodon"
       - "discovery.type=single-node"
       - "thread_pool.write.queue_size=1000"
-      - cluster.name=opensearch-cluster
-      - node.name=opensearch-node1
-      - bootstrap.memory_lock=true
-      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
-      - "DISABLE_INSTALL_DEMO_CONFIG=true"
-      - "DISABLE_SECURITY_PLUGIN=true"
-      - "discovery.type=single-node"
     ulimits:
       memlock:
         soft: -1
@@ -83,9 +76,9 @@ services:
       - 172.17.0.1:9280:9200
 
   web:
-    image: ghcr.io/mastodon/mastodon:v4.1.6
+    image: ghcr.io/mastodon/mastodon:latest
     restart: always
-    env_file: .env.production
+    env_file: ./.env
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
     ports:
       - "172.17.0.1:7834:3000"
@@ -97,9 +90,9 @@ services:
       - ./storage/public/system:/mastodon/public/system
 
   streaming:
-    image: ghcr.io/mastodon/mastodon:v4.1.6
+    image: ghcr.io/mastodon/mastodon:latest
     restart: always
-    env_file: .env.production
+    env_file: ./.env
     command: node ./streaming
     ports:
       - "172.17.0.1:8834:4000"
@@ -108,9 +101,9 @@ services:
       - redis
 
   sidekiq:
-    image: ghcr.io/mastodon/mastodon:v4.1.6
+    image: ghcr.io/mastodon/mastodon:latest
     restart: always
-    env_file: .env.production
+    env_file: ./.env
     command: bundle exec sidekiq
     depends_on:
       - db
