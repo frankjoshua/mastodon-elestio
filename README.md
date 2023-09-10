@@ -15,3 +15,9 @@ You can open Mastodon UI here:
     URL: https://[CI_CD_DOMAIN]
     email: [ADMIN_EMAIL]
     password: [ADMIN_PASSWORD]
+
+You can open pgAdmin web UI here:
+
+    URL: https://[CI_CD_DOMAIN]:6443
+    email: [ADMIN_EMAIL]
+    password: [ADMIN_PASSWORD]
