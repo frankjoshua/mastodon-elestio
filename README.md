@@ -27,3 +27,27 @@ You can open Opensearch Dashboard here:
     URL: https://[CI_CD_DOMAIN]:5443
     email: root
     password: [ADMIN_PASSWORD]
+
+# Custom domain instructions (IMPORTANT)
+
+By default we setup a CNAME on elestio.app domain, but probably you will want to have your own domain.
+
+**_Step1:_** add your domain in Elestio dashboard as explained here:
+
+    https://docs.elest.io/books/security/page/custom-domain-and-automated-encryption-ssltls
+
+**_Step2:_** update the env vars to indicate your custom domain
+Open Elestio dashboard > Service overview > click on UPDATE CONFIG button > Env tab
+there update `LOCAL_DOMAIN`, `ALTERNATE_DOMAINS` & `DOMAIN` with your real domain
+
+**_Step3:_** you must reset the Mastodon instance , you can do that with those commands, connect over SSH and run this:
+
+    cd /opt/app;
+    docker-compose down;
+    rm -rf ./public;
+    rm -rf ./storage;
+    ./scripts/preInstall.sh
+    docker-compose up -d
+    ./scripts/postInstall.sh
+
+You will start over with a fresh instance of Mastodon directly configured with the correct custom domain name and federation will work as expected

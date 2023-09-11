@@ -94,6 +94,7 @@ services:
 
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:${SOFTWARE_VERSION_TAG}
+    restart: always
     ports:
       - 172.17.0.1:6835:5601
     expose:
