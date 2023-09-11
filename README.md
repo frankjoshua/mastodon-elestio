@@ -8,6 +8,10 @@ Deploy Mastodon server with CI/CD on Elestio
 <br/>
 <br/>
 
+# Configuration
+
+To deploy Mastodon, 2 CPUs/8GB RAM or more are recommended.
+
 # Once deployed ...
 
 You can open Mastodon UI here:
