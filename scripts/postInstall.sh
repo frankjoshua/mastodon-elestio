@@ -18,6 +18,7 @@ EOT
 docker-compose run --rm web bundle exec rake mastodon:webpush:generate_vapid_key >> .env;
 docker-compose run --rm web rails db:migrate;
 docker-compose run --rm web rails assets:precompile;
+docker-compose run --rm web bundle exec rails chewy:deploy;
 
 
 mkdir -p public
