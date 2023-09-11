@@ -21,3 +21,9 @@ You can open pgAdmin web UI here:
     URL: https://[CI_CD_DOMAIN]:6443
     email: [ADMIN_EMAIL]
     password: [ADMIN_PASSWORD]
+
+You can open Opensearch Dashboard here:
+
+    URL: https://[CI_CD_DOMAIN]:5443
+    email: root
+    password: [ADMIN_PASSWORD]

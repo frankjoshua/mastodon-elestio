@@ -15,6 +15,16 @@ ports:
     public: true
     path: "/"
     isAuth: false
+  - protocol: "HTTPS"
+    targetProtocol: "HTTP"
+    listeningPort: "5443"
+    targetPort: "6835"
+    targetIP: "172.17.0.1"
+    public: true
+    path: "/"
+    isAuth: true
+    login: "root"
+    password: "random_password"
   - protocol: "TCP"
     targetProtocol: "TCP"
     listeningPort: "25440"
@@ -23,6 +33,8 @@ ports:
     public: true
 
 environments:
+  - key: "SOFTWARE_VERSION_TAG"
+    value: "latest"
   - key: "ADMIN_EMAIL"
     value: "[EMAIL]"
   - key: "ADMIN_PASSWORD"
@@ -85,4 +97,8 @@ webUI:
   - url: "https://[CI_CD_DOMAIN]:6443"
     label: "PgAdmin"
     login: "[ADMIN_EMAIL]"
+    password: "[ADMIN_PASSWORD]"
+  - url: "https://[CI_CD_DOMAIN]:5443"
+    label: "Opensearch Dashboard"
+    login: "root"
     password: "[ADMIN_PASSWORD]"

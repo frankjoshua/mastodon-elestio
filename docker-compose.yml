@@ -21,7 +21,7 @@ services:
       - ./storage/redis:/data
 
   opensearch:
-    image: opensearchproject/opensearch:latest
+    image: opensearchproject/opensearch:${SOFTWARE_VERSION_TAG}
     restart: always
     environment:
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m -Des.enforce.bootstrap.checks=true"
@@ -45,7 +45,7 @@ services:
       - 172.17.0.1:9280:9200
 
   web:
-    image: ghcr.io/mastodon/mastodon:latest
+    image: ghcr.io/mastodon/mastodon:${SOFTWARE_VERSION_TAG}
     restart: always
     env_file: ./.env
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
@@ -59,7 +59,7 @@ services:
       - ./public/system:/mastodon/public/system
 
   streaming:
-    image: ghcr.io/mastodon/mastodon:latest
+    image: ghcr.io/mastodon/mastodon:${SOFTWARE_VERSION_TAG}
     restart: always
     env_file: ./.env
     command: node ./streaming
@@ -70,7 +70,7 @@ services:
       - redis
 
   sidekiq:
-    image: ghcr.io/mastodon/mastodon:latest
+    image: ghcr.io/mastodon/mastodon:${SOFTWARE_VERSION_TAG}
     restart: always
     env_file: ./.env
     command: bundle exec sidekiq
@@ -81,7 +81,7 @@ services:
       - ./public/system:/mastodon/public/system
 
   pgadmin4:
-    image: dpage/pgadmin4:latest
+    image: dpage/pgadmin4:${SOFTWARE_VERSION_TAG}
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: ${ADMIN_EMAIL}
@@ -91,3 +91,13 @@ services:
       - "172.17.0.1:8367:8080"
     volumes:
       - ./servers.json:/pgadmin4/servers.json
+
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:${SOFTWARE_VERSION_TAG}
+    ports:
+      - 172.17.0.1:6835:5601
+    expose:
+      - "5601"
+    environment:
+      OPENSEARCH_HOSTS: '["http://opensearch:9200"]'
+      DISABLE_SECURITY_DASHBOARDS_PLUGIN: "true"
