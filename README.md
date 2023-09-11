@@ -43,6 +43,7 @@ By default we setup a CNAME on elestio.app domain, but probably you will want to
 **_Step2:_** update the env vars to indicate your custom domain
 Open Elestio dashboard > Service overview > click on UPDATE CONFIG button > Env tab
 there update `LOCAL_DOMAIN`, `ALTERNATE_DOMAINS` & `DOMAIN` with your real domain
+In the same tab, remove `OTP_SECRET` and `SECRET_KEY_BASE` variable name and values.
 
 **_Step3:_** you must reset the Mastodon instance , you can do that with those commands, connect over SSH and run this:
 
