@@ -6,6 +6,8 @@ chown -R 1000:1000 ./storage/opensearch
 
 echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf && sysctl -p
 
+apt install apache2-utils -y;
+
 cat <<EOT > ./servers.json
 {
     "Servers": {
