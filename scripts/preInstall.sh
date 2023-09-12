@@ -4,6 +4,8 @@ set -o allexport; source .env; set +o allexport;
 mkdir -p ./storage/opensearch
 chown -R 1000:1000 ./storage/opensearch
 
+echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf && sysctl -p
+
 cat <<EOT > ./servers.json
 {
     "Servers": {
