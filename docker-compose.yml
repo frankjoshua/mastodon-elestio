@@ -5,6 +5,8 @@ services:
     image: elestio/postgres:15
     container_name: db
     shm_size: 256mb
+    networks:
+      - internal_network
     healthcheck:
       test: ['CMD', 'pg_isready', '-U', 'postgres']    
     volumes:
@@ -21,6 +23,8 @@ services:
     restart: always
     image: elestio/redis:7.0
     container_name: redis
+    networks:
+      - internal_network
     healthcheck:
       test: ['CMD', 'redis-cli', 'ping']
     volumes:
@@ -55,6 +59,9 @@ services:
     restart: always
     env_file: ./.env
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
+    networks:
+      - external_network
+      - internal_network
     healthcheck:
       test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:3000/health || exit 1']
     ports:
@@ -71,6 +78,9 @@ services:
     restart: always
     env_file: ./.env
     command: node ./streaming
+    networks:
+      - external_network
+      - internal_network
     healthcheck:
       test: ['CMD-SHELL', 'wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1']
     ports:
@@ -87,6 +97,9 @@ services:
     depends_on:
       - db
       - redis
+    networks:
+      - external_network
+      - internal_network  
     volumes:
       - ./public/system:/mastodon/public/system
     healthcheck:
@@ -114,3 +127,7 @@ services:
     environment:
       OPENSEARCH_HOSTS: '["http://opensearch:9200"]'
       DISABLE_SECURITY_DASHBOARDS_PLUGIN: "true"
+networks:
+  external_network:
+  internal_network:
+    internal: true
