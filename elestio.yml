@@ -29,7 +29,7 @@ ports:
     targetProtocol: "TCP"
     listeningPort: "25440"
     targetIP: "172.17.0.1"
-    targetPort: "6754"
+    targetPort: "8290"
     public: true
 
 environments:
