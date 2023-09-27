@@ -10,11 +10,11 @@
 
 [Mastodon](https://github.com/mastodon/mastodon) is a free fediverse, open-source social network server with OpenSearch for indexing.
 
-<img src="https://github.com/elestio-examples/mastodon/raw/main/mastodon.png" alt="mastodon" width="800">
+<img src="https://github.com/elestio-examples/mastodon/raw/main/mastodon.jpg" alt="mastodon" width="800">
 
 Deploy a <a target="_blank" href="https://elest.io/open-source/mastodon">fully managed MastoDon</a> on <a target="_blank" href="https://elest.io/">elest.io</a> is a free, open-source social network server where users can follow friends and discover new ones. On Mastodon, users can publish anything they want: links, pictures, text, video. It comes with OpenSearch for indexing.
 
-[![deploy](https://github.com/elestio-examples/mastodon/raw/main/mastodon.png)](https://dash.elest.io/deploy?source=cicd&social=dockerCompose&url=https://github.com/elestio-examples/mastodon)
+[![deploy](https://github.com/elestio-examples/mastodon/raw/main/mastodon.jpg)](https://dash.elest.io/deploy?source=cicd&social=dockerCompose&url=https://github.com/elestio-examples/mastodon)
 
 # Why use Elestio images?
 
